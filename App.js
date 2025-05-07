@@ -1,15 +1,48 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import dados from './db.json';
+
+const imagens = {
+  'ryan.png': require('./avatars/ryan.png'),
+  'donald.png': require('./avatars/donald.png'),
+};
 
 const App = () => {
+  const [doutores, setDoutores] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [cliente, setCliente] = useState('');
+
+  useEffect(() => {
+    setDoutores(dados.doutores);
+    setCategorias(dados.categorias);
+    setCliente(dados.cliente.nome);  // Carrega o nome do cliente
+  }, []);
+
+  const renderCategorias = () => {
+    const linhas = [];
+    for (let i = 0; i < categorias.length; i += 3) {
+      const linha = categorias.slice(i, i + 3);
+      linhas.push(
+        <View key={i} style={estilos.linhaCat}>
+          {linha.map((cat, index) => (
+            <TouchableOpacity key={index} style={estilos.cat}>
+              <Text>{cat}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      );
+    }
+    return linhas;
+  };
+
   return (
-    <View style={estilos.cont}>
+    <ScrollView style={estilos.cont}>
       <View style={estilos.head}>
         <View style={estilos.infoCliente}>
           <Image source={require('./avatars/guga.png')} style={estilos.avatarCliente} />
           <View>
             <Text style={estilos.bv}>Bem-vindo</Text>
-            <Text style={estilos.nome}>Gustavo da Silva</Text>
+            <Text style={estilos.nome}>{cliente}</Text> {/* Exibe o nome do cliente */}
           </View>
         </View>
         <TextInput style={estilos.busca} placeholder="Buscar médico" />
@@ -22,65 +55,32 @@ const App = () => {
             <Text style={estilos.textoMostrarTudo}>Mostrar Tudo</Text>
           </TouchableOpacity>
         </View>
-        <View style={estilos.linhaCat}>
-          <TouchableOpacity style={estilos.cat}>
-            <Text>Consulta</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={estilos.cat}>
-            <Text>Dentista</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={estilos.cat}>
-            <Text>Cardiologista</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={estilos.linhaCat}>
-          <TouchableOpacity style={estilos.cat}>
-            <Text>Hospital</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={estilos.cat}>
-            <Text>Emergência</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={estilos.cat}>
-            <Text>Laboratório</Text>
-          </TouchableOpacity>
-        </View>
+
+        {renderCategorias()}
       </View>
 
       <View style={estilos.pgto}>
         <Text style={estilos.tituloPgto}>Top Doutores</Text>
-        <View style={estilos.doutor}>
-          <Image source={require('./avatars/ryan.png')} style={estilos.avatar} />
-          <View style={estilos.infoDoutor}>
-            <Text style={estilos.nomedr}>Dr. Ryan Nascimento</Text>
-            <Text style={estilos.funcdr}>Terapeuta</Text>
-            <Text style={estilos.avaliacao}>4.9 (38 avaliações)</Text>
+
+        {doutores.map((dr, index) => (
+          <View key={index} style={estilos.doutor}>
+            <Image source={imagens[dr.imagem]} style={estilos.avatar} />
+            <View style={estilos.infoDoutor}>
+              <Text style={estilos.nomedr}>{dr.nome}</Text>
+              <Text style={estilos.funcdr}>{dr.especialidade}</Text>
+              <Text style={estilos.avaliacao}>{dr.avaliacao}</Text>
+            </View>
           </View>
-        </View>
-        <View style={estilos.doutor}>
-          <Image source={require('./avatars/donald.png')} style={estilos.avatar} />
-          <View style={estilos.infoDoutor}>
-            <Text style={estilos.nomedr}>Dr. Pato Donald</Text>
-            <Text style={estilos.funcdr}>Patologista</Text>
-            <Text style={estilos.avaliacao}>4.3 (89 avaliações)</Text>
-          </View>
-        </View>
+        ))}
       </View>
 
       <View style={estilos.rodape}>
-        <TouchableOpacity style={estilos.botao}>
-          <Text>Início</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={estilos.botao}>
-          <Text>Médicos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={estilos.botao}>
-          <Text>Agendamentos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={estilos.botao}>
-          <Text>Perfil</Text>
-        </TouchableOpacity>
+        <TouchableOpacity style={estilos.botao}><Text>Início</Text></TouchableOpacity>
+        <TouchableOpacity style={estilos.botao}><Text>Médicos</Text></TouchableOpacity>
+        <TouchableOpacity style={estilos.botao}><Text>Agendamentos</Text></TouchableOpacity>
+        <TouchableOpacity style={estilos.botao}><Text>Perfil</Text></TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -196,10 +196,8 @@ const estilos = StyleSheet.create({
   },
   botao: {
     fontSize: 16,
-    color: 'white', 
+    color: 'white',
   },
 });
-
-
 
 export default App;
