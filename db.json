@@ -1,0 +1,28 @@
+{
+    "cliente": {
+      "nome": "Gustavo da Silva"
+    },
+    "doutores": [
+      {
+        "nome": "Dr. Ryan Nascimento",
+        "especialidade": "Terapeuta",
+        "avaliacao": "4.9 (38 avaliações)",
+        "imagem": "ryan.png"
+      },
+      {
+        "nome": "Dr. Pato Donald",
+        "especialidade": "Patologista",
+        "avaliacao": "4.3 (89 avaliações)",
+        "imagem": "donald.png"
+      }
+    ],
+    "categorias": [
+      "Consulta",
+      "Dentista",
+      "Cardiologista",
+      "Hospital",
+      "Emergência",
+      "Laboratório"
+    ]
+  }
+  
