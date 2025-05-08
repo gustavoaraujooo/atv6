@@ -1,28 +1,28 @@
 {
-    "cliente": {
-      "nome": "Gustavo da Silva"
-    },
-    "doutores": [
+  "cliente": {
+      "nome": "Gustavo da Silva",
+      "avatar": "guga.png"
+  },
+  "doutores": [
       {
-        "nome": "Dr. Ryan Nascimento",
-        "especialidade": "Terapeuta",
-        "avaliacao": "4.9 (38 avaliações)",
-        "imagem": "ryan.png"
+          "nome": "Dr. Ryan Nascimento",
+          "especialidade": "Terapeuta",
+          "avaliacao": "4.9 (38 avaliações)",
+          "imagem": "ryan.png"
       },
       {
-        "nome": "Dr. Pato Donald",
-        "especialidade": "Patologista",
-        "avaliacao": "4.3 (89 avaliações)",
-        "imagem": "donald.png"
+          "nome": "Dr. Pato Donald",
+          "especialidade": "Patologista",
+          "avaliacao": "4.3 (89 avaliações)",
+          "imagem": "donald.png"
       }
-    ],
-    "categorias": [
-      "Consulta",
-      "Dentista",
-      "Cardiologista",
-      "Hospital",
-      "Emergência",
-      "Laboratório"
-    ]
-  }
-  
+  ],
+  "categorias": [
+      { "id": 1, "nome": "Consulta" },
+      { "id": 2, "nome": "Dentista" },
+      { "id": 3, "nome": "Cardiologista" },
+      { "id": 4, "nome": "Hospital" },
+      { "id": 5, "nome": "Emergência" },
+      { "id": 6, "nome": "Laboratório" }
+  ]
+}
