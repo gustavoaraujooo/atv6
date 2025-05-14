@@ -8,6 +8,7 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const imagens = {
   "ryan.png": require("./avatars/ryan.png"),
@@ -53,49 +54,71 @@ const App = () => {
   };
 
   return (
-    <ScrollView style={estilos.cont}>
-      <View style={estilos.head}>
-        <View style={estilos.infoCliente}>
-          {cliente.avatar && imagens[cliente.avatar] ? (
-            <Image
-              source={require(`./avatars/guga.png`)}
-              style={estilos.avatarCliente}
-            />
-          ) : (
-            <Text style={estilos.aviso}>Avatar não encontrado</Text>
-          )}
-          <View>
-            <Text style={estilos.bv}>Bem-vindo</Text>
-            <Text style={estilos.nome}>{cliente.nome}</Text>
-          </View>
-        </View>
-        <TextInput style={estilos.busca} placeholder="Buscar médico" />
-      </View>
-
-      <View style={estilos.cats}>
-        <Text style={estilos.tituloCat}>Categorias</Text>
-        <View style={estilos.linhaCat}>{renderCategorias()}</View>
-      </View>
-
-      <View style={estilos.pgto}>
-        <Text style={estilos.tituloPgto}>Top Doutores</Text>
-        {doutores.map((dr, index) => (
-          <View key={index} style={estilos.doutor}>
-            <Image source={imagens[dr.imagem]} style={estilos.avatar} />
-            <View style={estilos.infoDoutor}>
-              <Text style={estilos.nomedr}>{dr.nome}</Text>
-              <Text style={estilos.funcdr}>{dr.especialidade}</Text>
-              <Text style={estilos.avaliacao}>{dr.avaliacao}</Text>
+    <View style={estilos.container}>
+      <ScrollView style={estilos.scroll}>
+        <View style={estilos.head}>
+          <View style={estilos.infoCliente}>
+            {cliente.avatar && imagens[cliente.avatar] ? (
+              <Image
+                source={require(`./avatars/guga.png`)}
+                style={estilos.avatarCliente}
+              />
+            ) : (
+              <Text style={estilos.aviso}>Avatar não encontrado</Text>
+            )}
+            <View>
+              <Text style={estilos.bv}>Bem-vindo</Text>
+              <Text style={estilos.nome}>{cliente.nome}</Text>
             </View>
           </View>
-        ))}
+          <TextInput style={estilos.busca} placeholder="Buscar médico" />
+        </View>
+
+        <View style={estilos.cats}>
+          <Text style={estilos.tituloCat}>Categorias</Text>
+          <View style={estilos.linhaCat}>{renderCategorias()}</View>
+        </View>
+
+        <View style={estilos.pgto}>
+          <Text style={estilos.tituloPgto}>Top Doutores</Text>
+          {doutores.map((dr, index) => (
+            <View key={index} style={estilos.doutor}>
+              <Image source={imagens[dr.imagem]} style={estilos.avatar} />
+              <View style={estilos.infoDoutor}>
+                <Text style={estilos.nomedr}>{dr.nome}</Text>
+                <Text style={estilos.funcdr}>{dr.especialidade}</Text>
+                <Text style={estilos.avaliacao}>{dr.avaliacao}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+
+      <View style={estilos.footer}>
+        <TouchableOpacity style={estilos.footerItem}>
+          <Ionicons name="home-outline" size={20} color="white" />
+          <Text style={estilos.footerText}>Início</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={estilos.footerItem}>
+          <Ionicons name="medkit-outline" size={20} color="white" />
+          <Text style={estilos.footerText}>Doutores</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={estilos.footerItem}>
+          <Ionicons name="calendar-outline" size={20} color="white" />
+          <Text style={estilos.footerText}>Agendamento</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={estilos.footerItem}>
+          <Ionicons name="person-outline" size={20} color="white" />
+          <Text style={estilos.footerText}>Perfil</Text>
+        </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
 const estilos = StyleSheet.create({
-  cont: { flex: 1, backgroundColor: "white" },
+  container: { flex: 1 },
+  scroll: { flex: 1, backgroundColor: "white" },
   head: { backgroundColor: "blue", padding: 20 },
   infoCliente: { flexDirection: "row", alignItems: "center" },
   avatarCliente: { width: 50, height: 50, borderRadius: 25, marginRight: 10 },
@@ -136,6 +159,20 @@ const estilos = StyleSheet.create({
   nomedr: { fontSize: 16, fontWeight: "bold" },
   funcdr: { fontSize: 14, color: "gray" },
   avaliacao: { fontSize: 14, color: "orange" },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "blue",
+    paddingVertical: 10,
+  },
+  footerItem: {
+    alignItems: "center",
+  },
+  footerText: {
+    color: "white",
+    fontSize: 14,
+    marginTop: 2,
+  },
 });
 
 export default App;
